@@ -40,7 +40,7 @@ export default function SignUp() {
     }
   ]
   return (
-    <div className="flex items-center min-h-screen justify-center">
+    <div className="flex items-center min-h-screen justify-center flex-col">
       <CardWithForm data={data} title={"Sign Up"} mutate={mutate} />
       <h1>{isPending ? "Loading...." : ""}</h1>
     </div>

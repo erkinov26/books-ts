@@ -50,7 +50,7 @@ export default function LogIn() {
     }
   ]
   return (
-    <div className="flex items-center min-h-screen justify-center">
+    <div className="flex flex-col items-center min-h-screen justify-center">
       <CardWithForm data={data} title={"Log In"} mutate={mutate} />
       <h1>{isPending ? "Loading..." : ""}</h1>
     </div>
