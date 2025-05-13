@@ -2,12 +2,16 @@ import { CardWithForm } from "@/components/custom/form";
 import type { Book } from "@/types";
 import { registerUser } from "@/utils/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const navigate = useNavigate()
   const { mutate } = useMutation({
     mutationFn: (formData: any) => registerUser(formData),
     onSuccess: () => {
+      navigate('/login')
       console.log("success");
+
 
     },
     onError: (error: any) => {
