@@ -11,6 +11,7 @@ export default function LogIn() {
     mutationFn: (formData: any) => loginUser(formData),
     onSuccess: (data) => {
       Cookies.set('user', JSON.stringify(data));
+      navigate('/login');
       toast.success("Successfully Log In", {
         style: {
           color: 'green'
@@ -49,7 +50,7 @@ export default function LogIn() {
   ]
   return (
     <div className="flex items-center min-h-screen justify-center">
-      <CardWithForm data={data} title={"Sign Up"} mutate={mutate} />
+      <CardWithForm data={data} title={"Log In"} mutate={mutate} />
     </div>
   )
 }

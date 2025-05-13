@@ -1,6 +1,7 @@
 import { useDeleteBook } from "@/hooks/useMutationBooks";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { ModalForm } from "./modal";
 
 export function BookCard({ data }: { data: any }) {
   const { mutate, isPending } = useDeleteBook()
@@ -14,8 +15,9 @@ export function BookCard({ data }: { data: any }) {
         <Button className="cursor-pointer" onClick={() => {
           mutate(data.id)
         }} variant="destructive">
-          {isPending ? "Deleting..." : "Delete Book" }
+          {isPending ? "Deleting..." : "Delete Book"}
         </Button>
+        <ModalForm text={"Add Book"} />
       </CardFooter>
     </Card>
 

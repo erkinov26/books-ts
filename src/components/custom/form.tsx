@@ -11,18 +11,26 @@ import InputCustom from "./input";
 import { useForm, FormProvider } from "react-hook-form";
 import { useStore } from "@/store";
 
-export function CardWithForm({ bookId = null, title, data, mutate }: { bookId?: any, title?: any, data: any; mutate: any }) {
-  const methods = useForm();
+export function CardWithForm({ bookId = null, title, data, mutate, defaultValues = {} }: {
+  bookId?: any,
+  title?: any,
+  data: any,
+  mutate: any,
+  defaultValues?: any,
+}) {
+  const methods = useForm({
+    defaultValues
+  });
   const { handleSubmit, formState: { errors } } = methods;
   const { setIsOpen } = useStore();
 
   const onSubmit = (formData: any) => {
     if (bookId) {
-      mutate(bookId, formData);
+      mutate({ id: bookId, ...formData }); // edit
     } else {
-      mutate(formData);
+      mutate(formData); // add
     }
-    setIsOpen(false); // Modalni yopish
+    setIsOpen(false);
   };
 
   return (
@@ -30,7 +38,7 @@ export function CardWithForm({ bookId = null, title, data, mutate }: { bookId?: 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="w-[350px]">
           <CardHeader>
-            <CardTitle className="text-center">Form</CardTitle>
+            <CardTitle className="text-center">{title}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">

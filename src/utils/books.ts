@@ -2,10 +2,12 @@ import Cookies from "js-cookie";
 import { supabaseAxios } from "./server";
 const user = JSON.parse(Cookies.get("user") || "{}");
 export const addBook = async (data: any) => {
+  const user = JSON.parse(Cookies.get('user') || '{}');
   try {
-    const response = await supabaseAxios.post('/books',
-      data
+    const response = await supabaseAxios.post(`/books`,
+      { ...data, user_id: user.id }
     );
+
 
     if (response.status !== 201) {
       throw new Error('Kitobni qo\'shishda xato yuz berdi!');
@@ -15,6 +17,7 @@ export const addBook = async (data: any) => {
     const errMsg = error.response?.data?.message || 'Serverda xatolik yuz berdi.';
     throw new Error(`Kitobni qo\'shishda xatolik: ${errMsg}`);
   }
+
 };
 export const getBooks = async () => {
   try {
