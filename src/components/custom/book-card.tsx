@@ -2,8 +2,9 @@ import { useDeleteBook } from "@/hooks/useMutationBooks";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { ModalForm } from "./modal";
+import type { Book } from "@/types";
 
-export function BookCard({ data }: { data: any }) {
+export function BookCard({ data }: { data: Book }) {
   const { mutate, isPending } = useDeleteBook()
   return (
     <Card className="sm:min-w-[30%] min-w-[45%] sm:mr-8 sm:mb-4">

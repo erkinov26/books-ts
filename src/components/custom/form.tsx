@@ -10,13 +10,15 @@ import { Label } from "@/components/ui/label";
 import InputCustom from "./input";
 import { useForm, FormProvider } from "react-hook-form";
 import { useStore } from "@/store";
+import type { Book } from "@/types";
+import type { UseMutateFunction } from "@tanstack/react-query";
 
-export function CardWithForm({ bookId = null, title, data, mutate, defaultValues = {} }: {
-  bookId?: any,
-  title?: any,
-  data: any,
-  mutate: any,
-  defaultValues?: any,
+export function CardWithForm({ bookId = null, title, data, mutate, defaultValues }: {
+  bookId?: string | null,
+  title?: string,
+  data: { name: keyof Book; title: string }[],
+  mutate: UseMutateFunction<any, Error, any, unknown>,
+  defaultValues?: Book,
 }) {
   const methods = useForm({
     defaultValues
@@ -26,9 +28,9 @@ export function CardWithForm({ bookId = null, title, data, mutate, defaultValues
 
   const onSubmit = (formData: any) => {
     if (bookId) {
-      mutate({ id: bookId, ...formData }); // edit
+      mutate({ id: bookId, ...formData });
     } else {
-      mutate(formData); // add
+      mutate(formData);
     }
     setIsOpen(false);
   };
@@ -42,11 +44,11 @@ export function CardWithForm({ bookId = null, title, data, mutate, defaultValues
           </CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">
-              {data.map((item: any) => (
+              {data.map((item: { name: keyof Book; title: string }) => (
                 <div key={item.name} className="flex flex-col space-y-1.5">
                   <Label htmlFor={item.name}>{item.title}</Label>
                   <InputCustom item={item} />
-                  {errors[item.name] && (
+                  {errors[item.name as keyof Book] && (
                     <span className="text-red-500 text-sm">
                       {errors[item.name]?.message as string}
                     </span>

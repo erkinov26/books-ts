@@ -1,4 +1,5 @@
 import { CardWithForm } from "@/components/custom/form"
+import type { Book } from "@/types";
 import { loginUser } from "@/utils/auth";
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
@@ -37,14 +38,14 @@ export default function LogIn() {
       title: 'Email',
       type: 'email',
       placeholder: 'example@gmail.com',
-      name: 'email',
+      name: 'email' as keyof Book,
       maxLenth: 100,
     },
     {
       title: 'Password',
       type: 'password',
       placeholder: 'Enter your password',
-      name: 'password',
+      name: 'password' as keyof Book,
       maxLenth: 100,
     }
   ]

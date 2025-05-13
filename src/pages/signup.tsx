@@ -1,9 +1,10 @@
 import { CardWithForm } from "@/components/custom/form";
+import type { Book } from "@/types";
 import { registerUser } from "@/utils/auth";
 import { useMutation } from "@tanstack/react-query";
 
 export default function SignUp() {
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (formData: any) => registerUser(formData),
     onSuccess: () => {
       console.log("success");
@@ -18,19 +19,19 @@ export default function SignUp() {
       title: 'Email',
       type: 'email',
       placeholder: 'example@gmail.com',
-      name: 'email',
+      name: 'email' as keyof Book,
       maxLenth: 100,
     }, {
       title: 'Username',
       type: 'text',
       placeholder: 'charlie',
-      name: 'username',
+      name: 'username' as keyof Book,
       maxLenth: 100,
     }, {
       title: 'Password',
       type: 'password',
       placeholder: 'Enter your password',
-      name: 'password',
+      name: 'password' as keyof Book,
       maxLenth: 100,
     }
   ]

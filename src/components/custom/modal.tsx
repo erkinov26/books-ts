@@ -3,24 +3,24 @@ import { Button } from "../ui/button";
 import { CardWithForm } from "./form";
 import { useStore } from "@/store";
 import { useAddBook, useEditBook } from "@/hooks/useMutationBooks";
+import type { Book } from "@/types";
 
-export function ModalForm({ data, text }: { data?: any, text: any }) {
+export function ModalForm({ data, text }: { data?: Book, text: string }) {
   const { mutate: editMutateFunc } = useEditBook();
   const { mutate: addBook } = useAddBook();
-  console.log("🚀 ~ ModalForm ~ text:", text)
   const dummy = [
     {
       title: 'Title',
       type: 'text',
       placeholder: 'Enter your book title',
-      name: 'title',
+      name: 'title' as keyof Book,
       maxLength: 100,
     },
     {
       title: 'Description',
       type: 'text',
       placeholder: 'Enter your book description',
-      name: 'description',
+      name: 'description' as keyof Book,
       maxLength: 100,
     }
   ];
@@ -46,11 +46,11 @@ export function ModalForm({ data, text }: { data?: any, text: any }) {
               <XIcon />
             </Button>
             <CardWithForm
-              bookId={editBook?.id}
+              bookId={editBook?.id && null}
               title={editBook ? "Edit Book" : "Add Book"}
               data={dummy}
               mutate={editBook ? editMutateFunc : addBook}
-              defaultValues={editBook}
+              defaultValues={editBook ? editBook : undefined}
             />
           </div>
         </>
