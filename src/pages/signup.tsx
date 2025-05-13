@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate()
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (formData: any) => registerUser(formData),
     onSuccess: () => {
       navigate('/login')
@@ -42,6 +42,7 @@ export default function SignUp() {
   return (
     <div className="flex items-center min-h-screen justify-center">
       <CardWithForm data={data} title={"Sign Up"} mutate={mutate} />
+      <h1>{isPending ? "Loading...." : ""}</h1>
     </div>
   )
 }

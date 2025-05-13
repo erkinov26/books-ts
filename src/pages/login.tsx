@@ -8,11 +8,11 @@ import { toast } from "sonner";
 
 export default function LogIn() {
   const navigate = useNavigate()
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (formData: any) => loginUser(formData),
     onSuccess: (data) => {
       Cookies.set('user', JSON.stringify(data));
-      navigate('/login');
+      navigate('/dashboard');
       toast.success("Successfully Log In", {
         style: {
           color: 'green'
@@ -52,6 +52,7 @@ export default function LogIn() {
   return (
     <div className="flex items-center min-h-screen justify-center">
       <CardWithForm data={data} title={"Log In"} mutate={mutate} />
+      <h1>{isPending ? "Loading..." : ""}</h1>
     </div>
   )
 }
