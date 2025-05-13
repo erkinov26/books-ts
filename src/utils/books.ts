@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { supabaseAxios } from "./server";
-const user = JSON.parse(Cookies.get("user") || "{}");
 export const addBook = async (data: any) => {
   const user = JSON.parse(Cookies.get('user') || '{}');
   try {
@@ -20,16 +19,13 @@ export const addBook = async (data: any) => {
 
 };
 export const getBooks = async () => {
+  const user = JSON.parse(Cookies.get('user') || '{}');
   try {
     const response = await supabaseAxios.get('/books', {
       params: {
         user_id: `eq.${user.id}`,
       }
     });
-
-    if (response.data.length === 0) {
-      throw new Error('Foydalanuvchi hisobiga kitoblar topilmadi');
-    }
     return response.data;
   } catch (error: any) {
 

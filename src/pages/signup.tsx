@@ -42,6 +42,9 @@ export default function SignUp() {
   return (
     <div className="flex items-center min-h-screen justify-center flex-col">
       <CardWithForm data={data} title={"Sign Up"} mutate={mutate} />
+      <p>Do you have account? <span className="text-blue-500 cursor-pointer" onClick={() => {
+        navigate('/login')
+      }}>Sign Up</span></p>
       <h1>{isPending ? "Loading...." : ""}</h1>
     </div>
   )
